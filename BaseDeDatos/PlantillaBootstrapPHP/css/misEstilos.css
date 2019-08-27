@@ -1,0 +1,10 @@
+.bg-primary{
+	height: 80vh !important;
+	background: url(../imagenes/persona3.jpg) fixed;
+	background-size: cover;
+}
+
+.titulo{
+	margin-top: 40vh;
+	background: rgba(0,0,0,0.5);
+}

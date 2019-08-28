@@ -32,6 +32,7 @@ INSERT INTO `informacion` (`info_Peso`, `info_Altura`, `info_IMC`)
 VALUES ('".$peso."', '".$altura."', '".$IMC."')";
 mysqli_query($conexion, $consulta);
 
+
 $color = "";
 $resultado = "";
 if ($IMC<15) {
@@ -59,6 +60,36 @@ if ($IMC<15) {
   $resultado = "Obesidad morbida";
   $color = "darkred";
 }
+
+/*Estadisticas*/
+$consulta_estadisticas = "SELECT AVG(`info_IMC`) AS 'imc_promedio', AVG(`info_Peso`) AS 'peso_promedio', AVG(`info_Altura`) AS 'altura_promedio', MAX(`info_Peso`) AS 'peso_maximo', COUNT(*) AS 'cantidad_usuarios' FROM `informacion` WHERE 1";
+$consulta = mysqli_query($conexion, $consulta_estadisticas);
+$fila = mysqli_fetch_array($consulta, MYSQLI_ASSOC);
+
+
+/*
+echo "<pre>";
+print_r($fila);
+die();
+*/
+
+$peso_promedio = round($fila['peso_promedio'],2);
+$altura_promedio = round($fila['altura_promedio'],2);
+$imc_promedio = round($fila['imc_promedio'],2);
+$peso_maximo = $fila['peso_maximo'];
+$cantidad_usuarios = $fila['cantidad_usuarios'];
+
+/*Consulta para toda la tabla*/
+$consulta_global = "SELECT * FROM `informacion`";
+$consulta = mysqli_query($conexion, $consulta_global);
+$tabla = mysqli_fetch_all($consulta, MYSQLI_ASSOC);
+
+/*
+mysql = -4.3
+mysqli = +4.4
+*/
+
+mysqli_close($conexion);
 
 ?>
 
@@ -178,8 +209,46 @@ if ($IMC<15) {
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
-          <h2>Contact us</h2>
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
+          <h2>Estadisticas</h2>
+          <ul class="lead">
+            <li>Peso Promedio : <?php echo $peso_promedio; ?></li>
+            <li>Altura Promedio : <?php echo $altura_promedio; ?></li>
+            <li>IMC Promedio : <?php echo $imc_promedio; ?></li>
+            <li>Peso Maximo : <?php echo $peso_maximo; ?></li>
+            <li>Cantidad de usuarios : <?php echo $cantidad_usuarios; ?></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>Datos Globales</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Fecha De Registro</th>
+                <th scope="col">Peso</th>
+                <th scope="col">Altura</th>
+                <th scope="col">I.M.C.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($tabla as $fila) {?>
+              <tr>
+                <th scope="row"><?php echo $fila['info_ID']; ?></th>
+                <td><?php echo $fila['info_Fecha']; ?></td>
+                <td><?php echo $fila['info_Peso']; ?></td>
+                <td><?php echo $fila['info_Altura']; ?></td>
+                <td><?php echo $fila['info_IMC']; ?></td>
+              </tr>
+              <?php } ?>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -188,7 +257,8 @@ if ($IMC<15) {
   <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+      <p class="m-0 text-center text-white">
+      Copyright &copy; Your Website 2019</p>
     </div>
     <!-- /.container -->
   </footer>

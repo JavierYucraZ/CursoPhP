@@ -131,13 +131,16 @@ mysqli_close($conexion);
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            <a class="nav-link js-scroll-trigger" href="#concepto">Que es el IMC?</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+            <a class="nav-link js-scroll-trigger" href="#calculadora">Calcula tu IMC</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            <a class="nav-link js-scroll-trigger" href="#estadisticas">Estadisticas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#tabla">Datos GLobales</a>
           </li>
         </ul>
       </div>
@@ -151,7 +154,7 @@ mysqli_close($conexion);
     </div>
   </header>
 
-  <section id="about">
+  <section id="concepto">
     <div class="container">
       <div class="row">
         <div class="col-lg-10 mx-auto">
@@ -167,7 +170,7 @@ mysqli_close($conexion);
     </div>
   </section>
 
-  <section id="services" class="bg-light">
+  <section id="calculadora" class="bg-light">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
@@ -205,7 +208,7 @@ mysqli_close($conexion);
     </div>
   </section>
 
-  <section id="contact">
+  <section id="estadisticas">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
@@ -222,7 +225,7 @@ mysqli_close($conexion);
     </div>
   </section>
 
-  <section id="contact">
+  <section id="tabla">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
@@ -244,7 +247,32 @@ mysqli_close($conexion);
                 <td><?php echo $fila['info_Fecha']; ?></td>
                 <td><?php echo $fila['info_Peso']; ?></td>
                 <td><?php echo $fila['info_Altura']; ?></td>
-                <td><?php echo $fila['info_IMC']; ?></td>
+                <?php 
+
+                $color = "";
+                if ($fila['info_IMC']<15) {
+                  $color = "red";
+                }elseif ($fila['info_IMC']>15 && $fila['info_IMC']<15.9) {
+                  $color = "orange";
+                }elseif ($fila['info_IMC']>16 && $fila['info_IMC']<18.4) {
+                  $color = "yellow";
+                }elseif ($fila['info_IMC']>18.5 && $fila['info_IMC']<24.9) {
+                  $color = "green";
+                }elseif ($fila['info_IMC']>25 && $fila['info_IMC']<29.9) {
+                  $color = "yellow";
+                }elseif ($fila['info_IMC']>30 && $fila['info_IMC']<34.9) {
+                  $color = "orange";
+                }elseif ($fila['info_IMC']>35 && $fila['info_IMC']<39.9) {
+                  $color = "red";
+                }elseif ($fila['info_IMC']>40) {
+                  $color = "darkred";
+                }
+
+                ?>
+                <td 
+                style="background: <?php echo $color; ?>;">
+                <?php echo $fila['info_IMC']; ?>
+                </td>
               </tr>
               <?php } ?>
             </tbody>

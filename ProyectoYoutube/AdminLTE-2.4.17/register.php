@@ -1,3 +1,86 @@
+<?php
+
+$localhost = "localhost";
+$usuario = "root";
+$pass = "";
+$DB = "clontube";  
+
+$mensaje = "";
+
+$email = "";
+$password = "";
+$password2 = "";
+
+if (isset($_POST['email'])
+    && isset($_POST['password'])
+    && isset($_POST['password2'])
+    && isset($_POST['acepta'])) {
+  
+  if ($_POST['email'] == "") {
+    $mensaje .= "Debe ingresar su correo electronico <br>";
+  }
+
+  if ($_POST['password'] == "") {
+    $mensaje .= "Debe ingresar su clave <br>";
+  }
+
+  if ($_POST['password2'] == "") {
+    $mensaje .= "Debe repetir su clave <br>";
+  }
+
+  $email = strip_tags($_POST['email']);
+  $password = strip_tags($_POST['password']);
+  $password2 = strip_tags($_POST['password2']);
+
+  if ($password != $password2) {
+    $mensaje .= "Las claves no coinciden <br>";
+  }elseif (strlen($password) <= 8) {
+    $mensaje .= "La clave debe ser mayor a 8 caracteres";
+  }else{
+    
+    /*conexion a la base de datos*/
+    $conexion = mysqli_connect($localhost, $usuario, $pass, $DB);
+    if (!$conexion) {
+      echo "Hubo un problema al conectar la base de datos";
+      die();
+    }
+    /********************************/
+
+    $ip = $_SERVER['REMOTE_ADDR'];
+
+    /*Consulta de email unico*/
+    $validacion_email_consulta = "SELECT * FROM `usuarios` WHERE `usuarios_email` = '".$email."' ";
+    $traduccion_consulta = mysqli_query($conexion, $validacion_email_consulta);
+    $usuarios_asociativo = mysqli_fetch_all($traduccion_consulta, MYSQLI_ASSOC);
+    /**************************/
+
+    /*
+    echo "<pre>";
+    print_r($usuarios_asociativo);}
+    die();
+    */
+    
+    /*Un email sera unico si el conteo de los registros con dicho email es 0*/
+    $conteo_usuarios_email = count($usuarios_asociativo);
+    if ($conteo_usuarios_email == 0) {
+      /*Codificacion de password en sha1 y md5*/
+      $password = sha1($password);
+      $password = md5($password);
+      /***************************************/
+
+      /*Consulta para ingresar toda la informacion de nuestro formulario*/
+      $ingreso_datos_consulta = "INSERT INTO `usuarios` (`usuarios_email`, `usuarios_password`, `usuarios_ip`) VALUES ('".$email."','".$password."','".$ip."')";
+      mysqli_query($conexion, $ingreso_datos_consulta);
+      $mensaje = "Datos ingresado satisfactoriamente";
+      /******************************************************************/
+    }else{
+      $mensaje = "El email ya esta en uso";
+    }
+  }    
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +119,7 @@
   <div class="register-box-body">
     <p class="login-box-msg">Registrar nuevo usuario</p>
 
-    <form action="index.html" method="post">
+    <form action="register.php" method="post">
       <div class="form-group has-feedback">
         <input name="email" type="email" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -53,7 +136,7 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> He leido y acepto los <a href="#">terminos</a>
+              <input type="checkbox" name="acepta" required> He leido y acepto los <a href="#">terminos</a>
             </label>
           </div>
         </div>
@@ -62,6 +145,9 @@
           <button type="submit" class="btn btn-primary btn-block btn-flat">Registro</button>
         </div>
         <!-- /.col -->
+      </div>
+      <div style="color: red;">
+        <?php echo $mensaje; ?>
       </div>
     </form>
 

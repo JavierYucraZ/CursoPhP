@@ -22,6 +22,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $password = sha1($password);
     $password = md5($password);
 
+    /*$pass1 = substr($password, 0,10);*/
     $conexion = mysqli_connect($localhost, $usuario, $pass, $DB);
     if (!$conexion) {
       echo "Error de conexion con la base de datos";

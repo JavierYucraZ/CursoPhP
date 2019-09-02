@@ -66,6 +66,8 @@ if (isset($_POST['email'])
       /*Codificacion de password en sha1 y md5*/
       $password = sha1($password);
       $password = md5($password);
+      
+      /*$pass1 = substr($password, 0,10);*/
       /***************************************/
 
       /*Consulta para ingresar toda la informacion de nuestro formulario*/

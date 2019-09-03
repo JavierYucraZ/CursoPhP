@@ -188,7 +188,7 @@ if ($autorizado == false) {
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Menu de Navegacion</li>
 
-        <li class="active">
+        <li class="">
           <a href="principal.php">
             <i class="fa fa-binoculars"></i> <span>Descubrir</span>
           </a>
@@ -202,7 +202,7 @@ if ($autorizado == false) {
         
         <li class="header">Herramientas</li>
         
-        <li class="">
+        <li class="active">
           <a href="configuraciones.php">
             <i class="fa fa-cog"></i> <span>Configuraciones</span>
           </a>
@@ -227,34 +227,53 @@ if ($autorizado == false) {
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3>150</h3>
-
-              <p>New Orders</p>
+        <div class="col-xs-6">
+         <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Cambia tu contrase&ntilde;a</h3>
             </div>
-            <div class="icon">
-              <i class="ion ion-bag"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Ingresa tu clave</label>
+                  <input name="nuevapass" type="password" class="form-control" id="exampleInputEmail1" placeholder="Ingresa tu nueva clave">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Repite tu clave</label>
+                  <input name="repite_nuevapass" type="password" class="form-control" id="exampleInputPassword1" placeholder="repite tu clave">
+                </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+              </div>
+            </form>
           </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-              <p>Bounce Rate</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
+          
+          <div> 
+            <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Cambia tu imagen de perfil</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputFile">File input</label>
+                  <input name="archivo" type="file" id="exampleInputFile">
+                </div>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Actualizar imagen</button>
+              </div>
+            </form>
+          </div>
+          </div>
+
         </div>
       <!-- /.row (main row) -->
 

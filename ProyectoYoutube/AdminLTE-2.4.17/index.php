@@ -1,4 +1,7 @@
-<?php  
+<?php
+session_start();  
+
+$_SESSION['autorizado'] = false;
 
 $localhost = "localhost";
 $usuario = "root";
@@ -45,7 +48,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     */
 
     $conteo_usuarios = count($usuarios_asociativo);
+    
+
     if ($conteo_usuarios == 1) {
+      
+      /*Atrapando informacion del usuario*/
+      $_SESSION['usuarios_ID'] = $usuarios_asociativo[0]['usuarios_ID'];
+      $_SESSION['usuarios_email'] = $usuarios_asociativo[0]['usuarios_email'];
+      $_SESSION['usuarios_ultimo'] = $usuarios_asociativo[0]['usuarios_ultimo_login'];
       $hoy = date("Y-m-d H:i:s");
 
       $actualizar_ultimo_login = 
@@ -53,8 +63,11 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
       $traduccion_actualizar = mysqli_query($conexion, $actualizar_ultimo_login);
       $mensaje = "Datos validos..";
+      $_SESSION['autorizado'] = true;
+      echo "<meta http-equiv='Refresh' content='2;url=principal.php'>";
     }else{
       $mensaje = "Credenciales invalidas";
+      $_SESSION['autrizado'] = false;
     }
   }
 

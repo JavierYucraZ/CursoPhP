@@ -188,13 +188,13 @@ if ($autorizado == false) {
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Menu de Navegacion</li>
 
-        <li class="active">
+        <li class="">
           <a href="principal.php">
             <i class="fa fa-binoculars"></i> <span>Descubrir</span>
           </a>
         </li>
 
-        <li class="">
+        <li class="active">
           <a href="siguiendo.php">
             <i class="fa fa-group"></i> <span>Siguiendo</span>
           </a>

@@ -8,6 +8,17 @@ if ($autorizado == false) {
   echo "<meta http-equiv='Refresh' content='3;url=index.php'>";
   die();
 }
+
+require_once('funciones.php');
+
+$msj = "";
+$ruta = obtener_imagen_usuario(); 
+
+if ($_FILES) {
+  $archivo = $_FILES;
+  $msj = grabar_imagen($archivo);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -151,7 +162,7 @@ if ($autorizado == false) {
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="<?php echo $ruta ?>" class="user-image" alt="User Image">
               <span class="hidden-xs"><?php echo $_SESSION['usuarios_email']; ?></span>
             </a>
           </li>
@@ -227,54 +238,68 @@ if ($autorizado == false) {
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-xs-6">
-         <div class="box box-primary">
+        
+        <div class="col-lg-6">
+          <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Cambia tu contrase&ntilde;a</h3>
+              <h3 class="box-title">Cambiar contrase&ntilde;a</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form">
+            <form role="form" method="post">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Ingresa tu clave</label>
-                  <input name="nuevapass" type="password" class="form-control" id="exampleInputEmail1" placeholder="Ingresa tu nueva clave">
+                  <label for="exampleInputEmail1">Ingresa nueva clave</label>
+                  <input name="nuevapass" type="password" class="form-control" id="exampleInputEmail1" placeholder="ingresa tu nueva clave">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Repite tu clave</label>
-                  <input name="repite_nuevapass" type="password" class="form-control" id="exampleInputPassword1" placeholder="repite tu clave">
+                  <input name="repnuevapass" type="password" class="form-control" id="exampleInputPassword1" placeholder="repite tu clave">
                 </div>
+                
+                
+              </div>
               <!-- /.box-body -->
+
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                <button type="submit" class="btn btn-primary">Cambiar clave</button>
               </div>
             </form>
           </div>
-          </div>
-          
-          <div> 
-            <div class="box box-primary">
+        </div>
+
+        <div class="col-lg-6">
+          <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Cambia tu imagen de perfil</h3>
+              <h3 class="box-title">Cambia tu foto de perfil</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form">
+            <form role="form" method="post" enctype="multipart/form-data" action="configuraciones.php">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="exampleInputFile">File input</label>
-                  <input name="archivo" type="file" id="exampleInputFile">
+                  <label for="exampleInputFile">Selecciona tu imagen</label>
+                  <input name="nombre_archivo" type="file" id="exampleInputFile">
                 </div>
               </div>
               <!-- /.box-body -->
+
+              <div>
+                <?php echo $msj; ?>
+              </div>
+
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Actualizar imagen</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
               </div>
             </form>
           </div>
-          </div>
-
         </div>
+        
+        </div>
+
+        
+
+
       <!-- /.row (main row) -->
 
     </section>

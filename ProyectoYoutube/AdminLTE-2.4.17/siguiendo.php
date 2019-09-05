@@ -8,6 +8,10 @@ if ($autorizado == false) {
   echo "<meta http-equiv='Refresh' content='3;url=index.php'>";
   die();
 }
+
+require_once("funciones.php");
+obtener_imagen_usuario();
+
 ?>
 
 <!DOCTYPE html>
@@ -151,7 +155,7 @@ if ($autorizado == false) {
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="<?php echo  obtener_imagen_usuario(); ?>" class="user-image" alt="User Image">
               <span class="hidden-xs"><?php echo $_SESSION['usuarios_email']; ?></span>
             </a>
           </li>
@@ -164,9 +168,9 @@ if ($autorizado == false) {
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+      <div class="user-panel" style="height: 70px;">
+        <div class="pull-left image" style="margin-top: 20px;">
+          <img src="<?php echo obtener_imagen_usuario();  ?>" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo $_SESSION['usuarios_email']; ?></p>

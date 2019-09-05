@@ -6,6 +6,49 @@ if (!$conexion) {
 	die();
 }
 
+function grabar_video($archivo){
+	$conexion = $GLOBALS['conexion'];
+
+	$msj = "";
+	$directorio = "video/";
+	/* nombre_de_imagen = BIcletA.png 
+	imagenes/nombre_de_imagen */
+	$nombre_video = $directorio.basename($archivo["nombre_archivo"]["name"]);
+	$cargaOK = 1;
+	$tipo_de_archivo = strtolower(pathinfo($nombre_video, PATHINFO_EXTENSION));
+
+	if (file_exists($nombre_video)) {
+		$msj .= "El archivo ya existe <br>";
+		$cargaOK = 0;
+	}
+
+
+	if ($archivo["nombre_archivo"]["size"] > 50000000) {
+		$msj .= "Video demasiado grande <br>";
+		$cargaOK = 0;
+	}
+
+	if ($tipo_de_archivo != "mp4") {
+		$msj .= "Tipo de archivo no permitido <br>";
+		$cargaOK = 0;
+	}
+
+	if ($cargaOK == 0) {
+		$msj .= "El video no se pudo publicar <br>";
+	}else{
+		if (move_uploaded_file($archivo["nombre_archivo"]["tmp_name"], $nombre_video)) {
+			$msj .= 
+			"La imagen ".basename($archivo["nombre_archivo"]["name"])." ha sido subida";
+			mysqli_query($conexion, "INSERT INTO `videos` (`videos_url`, `videos_usuarios_ID`) VALUES ('".$nombre_video."', '".$_SESSION['usuarios_ID']."')");
+		}else{
+			$msj .= "Hubo un error al momento escribir en disco <br>";
+		}
+	}
+
+	return $msj;
+
+}
+
 function grabar_imagen($archivo){
 	$conexion = $GLOBALS['conexion'];
 
@@ -54,5 +97,10 @@ function obtener_imagen_usuario(){
 	$ruta = $fila['usuarios_imagen'];
 	return $ruta;
 }
+
+/*
+upload_max_filesize = 50M
+post_max_size = 50M
+*/
 
 ?>

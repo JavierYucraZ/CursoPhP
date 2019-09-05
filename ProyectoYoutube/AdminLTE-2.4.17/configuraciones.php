@@ -1,6 +1,17 @@
 <?php  
 session_start();
 
+$localhost = "localhost";
+$usuario = "root";
+$pw = "";
+$DB = "clontube";
+
+$conexion = mysqli_connect($localhost, $usuario, $pw, $DB);
+if (!$conexion) {
+  echo "No se pudo conectar a la base de datos";
+  die();
+}
+
 $autorizado = $_SESSION['autorizado'];
 
 if ($autorizado == false) {
@@ -17,6 +28,28 @@ $ruta = obtener_imagen_usuario();
 if ($_FILES) {
   $archivo = $_FILES;
   $msj = grabar_imagen($archivo);
+}
+
+$msj2 = "";
+
+if (isset($_POST['nuevapass']) && isset($_POST['repnuevapass'])) {
+  
+  $password = strip_tags($_POST['nuevapass']);
+  $repite = strip_tags($_POST['repnuevapass']);
+
+  if ($password != $repite) {
+    $msj2 .= "Las claves no coinciden <br>";
+  }elseif (strlen($repite) <= 8 ) {
+    $msj2 .= "La clave debe ser mayor a 8 caracteres <br>";
+  }else{
+    $password = sha1($password);
+    $password = md5($password);
+
+    $actualizar = "UPDATE `usuarios` SET `usuarios_password` = '".$password."' WHERE `usuarios_ID` = '".$_SESSION['usuarios_ID']."' ";
+    $consulta = mysqli_query($conexion, $actualizar);
+    $msj2 = "Clave cambiada con exito";
+  }
+
 }
 
 ?>
@@ -175,9 +208,9 @@ if ($_FILES) {
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+      <div class="user-panel" style="height: 70px;">
+        <div class="pull-left image" style="margin-top: 20px;">
+          <img src="<?php echo obtener_imagen_usuario();  ?>" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo $_SESSION['usuarios_email']; ?></p>
@@ -246,7 +279,7 @@ if ($_FILES) {
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="post">
+            <form role="form" method="post" action="configuraciones.php">
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Ingresa nueva clave</label>
@@ -265,6 +298,9 @@ if ($_FILES) {
                 <button type="submit" class="btn btn-primary">Cambiar clave</button>
               </div>
             </form>
+            <div>
+              <?php echo $msj2; ?>
+            </div>
           </div>
         </div>
 

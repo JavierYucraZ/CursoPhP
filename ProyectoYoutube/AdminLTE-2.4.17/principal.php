@@ -102,7 +102,7 @@ if ($_FILES) {
 
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-flag-o"></i>
+              <i class="fa fa-bell-o"></i>
               <span class="label label-danger">9</span>
             </a>
             <ul class="dropdown-menu">
@@ -238,7 +238,7 @@ if ($_FILES) {
         </li>
 
         <li class="">
-          <a href="#">
+          <a href="cerrarSesion.php">
             <i class="fa fa-arrow-circle-left"></i> <span>Salir</span>
           </a>
         </li>

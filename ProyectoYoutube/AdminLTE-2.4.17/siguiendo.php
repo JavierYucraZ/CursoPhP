@@ -213,7 +213,7 @@ obtener_imagen_usuario();
         </li>
 
         <li class="">
-          <a href="#">
+          <a href="cerrarSesion.php">
             <i class="fa fa-arrow-circle-left"></i> <span>Salir</span>
           </a>
         </li>

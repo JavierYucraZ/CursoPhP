@@ -1,5 +1,6 @@
 <?php
-session_start();  
+session_start();
+date_default_timezone_set('America/La_Paz');  
 
 $_SESSION['autorizado'] = false;
 
@@ -67,7 +68,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       echo "<meta http-equiv='Refresh' content='2;url=principal.php'>";
     }else{
       $mensaje = "Credenciales invalidas";
-      $_SESSION['autrizado'] = false;
+      $_SESSION['autorizado'] = false;
     }
   }
 
@@ -113,7 +114,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   <div class="login-box-body">
     <p class="login-box-msg">Inicia sesion aqui!</p>
 
-    <form action="index.php" method="post">
+    <form action="index.php" method="post" autocomplete="off">
       <div class="form-group has-feedback">
         <input name="email" type="email" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

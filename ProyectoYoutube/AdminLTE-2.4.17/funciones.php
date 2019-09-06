@@ -6,6 +6,19 @@ if (!$conexion) {
 	die();
 }
 
+function obtener_video(){
+	$conexion = $GLOBALS['conexion'];
+
+	$resultado = mysqli_query($conexion, "SELECT * FROM `usuarios_y_videos` WHERE 1");
+	$video = mysqli_fetch_array($resultado, MYSQLI_ASSOC);
+
+	echo "<pre>";
+	print_r($video);
+	die();
+
+	return $video;
+}
+
 function grabar_video($archivo){
 	$conexion = $GLOBALS['conexion'];
 

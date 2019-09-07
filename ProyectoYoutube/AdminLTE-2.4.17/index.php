@@ -57,6 +57,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       $_SESSION['usuarios_ID'] = $usuarios_asociativo[0]['usuarios_ID'];
       $_SESSION['usuarios_email'] = $usuarios_asociativo[0]['usuarios_email'];
       $_SESSION['usuarios_ultimo'] = $usuarios_asociativo[0]['usuarios_ultimo_login'];
+      $_SESSION['estado'] = true;
+
       $hoy = date("Y-m-d H:i:s");
 
       $actualizar_ultimo_login = 

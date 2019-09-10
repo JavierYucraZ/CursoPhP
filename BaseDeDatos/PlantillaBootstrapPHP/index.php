@@ -30,7 +30,9 @@ if (isset($_POST['peso'])
 $consulta = "
 INSERT INTO `informacion` (`info_Peso`, `info_Altura`, `info_IMC`) 
 VALUES ('".$peso."', '".$altura."', '".$IMC."')";
+
 mysqli_query($conexion, $consulta);
+
 
 
 $color = "";
@@ -187,7 +189,7 @@ mysqli_close($conexion);
               <input class="btn btn-success" type="submit" value="Calcular">
             </form>
 
-      <?php  
+          <?php  
             if (isset($IMC)) {
           ?>
           

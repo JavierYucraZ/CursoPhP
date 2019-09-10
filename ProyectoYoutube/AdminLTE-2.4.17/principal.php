@@ -9,10 +9,6 @@ if ($autorizado == false) {
   die();
 }
 
-if ($estado = true) {
-  
-}
-
 require_once('funciones.php');
 obtener_imagen_usuario();
 

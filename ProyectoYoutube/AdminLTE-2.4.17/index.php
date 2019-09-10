@@ -26,6 +26,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $password = sha1($password);
     $password = md5($password);
 
+    /*$password = substr($password, 5,15);*/
+
     /*$pass1 = substr($password, 0,10);*/
     $conexion = mysqli_connect($localhost, $usuario, $pass, $DB);
     if (!$conexion) {
@@ -57,7 +59,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       $_SESSION['usuarios_ID'] = $usuarios_asociativo[0]['usuarios_ID'];
       $_SESSION['usuarios_email'] = $usuarios_asociativo[0]['usuarios_email'];
       $_SESSION['usuarios_ultimo'] = $usuarios_asociativo[0]['usuarios_ultimo_login'];
-      $_SESSION['estado'] = true;
 
       $hoy = date("Y-m-d H:i:s");
 

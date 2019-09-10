@@ -42,6 +42,7 @@ foreach ($datos as $key => $value) {
 	echo "<br>";
 	echo $value;
 }
+
 echo "<br>";
 
 foreach ($datos as $key => $value) {

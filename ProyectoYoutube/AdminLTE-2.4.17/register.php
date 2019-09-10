@@ -64,6 +64,7 @@ if (isset($_POST['email'])
     $conteo_usuarios_email = count($usuarios_asociativo);
     if ($conteo_usuarios_email == 0) {
       /*Codificacion de password en sha1 y md5*/
+      
       $password = sha1($password);
       $password = md5($password);
       

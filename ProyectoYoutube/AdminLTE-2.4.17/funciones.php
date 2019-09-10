@@ -8,10 +8,8 @@ if (!$conexion) {
 
 function obtener_video(){
 	$conexion = $GLOBALS['conexion'];
-
 	$resultado = mysqli_query($conexion, "SELECT * FROM `usuarios_y_videos` WHERE 1");
-	$video = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
-	
+	$video = mysqli_fetch_all($resultado, MYSQLI_ASSOC);	
 	return $video;
 }
 
